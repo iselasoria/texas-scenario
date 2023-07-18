@@ -1,39 +1,17 @@
 var wms_layers = [];
 
 
-    var projection_Light_0 = ol.proj.get('EPSG:3857');
-    var projectionExtent_Light_0 = projection_Light_0.getExtent();
-    var size_Light_0 = ol.extent.getWidth(projectionExtent_Light_0) / 256;
-    var resolutions_Light_0 = new Array(14);
-    var matrixIds_Light_0 = new Array(14);
-    for (var z = 0; z < 14; ++z) {
-        // generate resolutions and matrixIds arrays for this WMTS
-        resolutions_Light_0[z] = size_Light_0 / Math.pow(2, z);
-        matrixIds_Light_0[z] = z;
-    }
-    var lyr_Light_0 = new ol.layer.Tile({
-                            source: new ol.source.WMTS(({
-                              url: "https://api.mapbox.com/styles/v1/atlasofcoffee/cihl4t8x00003sikx987wn90l/wmts?access_token=pk.eyJ1IjoiYXRsYXNvZmNvZmZlZSIsImEiOiJjaWhsNGpuZzIwNmt1dTJqN2pjYWk1YnlsIn0.DlFA1wmH6CNrxxXBySX5rg",
+        var lyr_CartoDbPositron_0 = new ol.layer.Tile({
+            'title': 'CartoDb Positron',
+            'type': 'base',
+            'opacity': 1.000000,
+            
+            
+            source: new ol.source.XYZ({
     attributions: ' ',
-                                "layer": "cihl4t8x00003sikx987wn90l",
-                                "TILED": "true",
-             matrixSet: 'EPSG:3857',
-             format: 'image/png',
-              projection: projection_Light_0,
-              tileGrid: new ol.tilegrid.WMTS({
-                origin: ol.extent.getTopLeft(projectionExtent_Light_0),
-                resolutions: resolutions_Light_0,
-                matrixIds: matrixIds_Light_0
-              }),
-              style: 'default',
-              wrapX: true,
-                                "VERSION": "1.0.0",
-                            })),
-                            title: "Light",
-                            opacity: 1.0,
-                            
-                            
-                          });
+                url: 'http://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+            })
+        });
 var format_CBSABoundary_1 = new ol.format.GeoJSON();
 var features_CBSABoundary_1 = format_CBSABoundary_1.readFeatures(json_CBSABoundary_1, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
@@ -73,7 +51,7 @@ var lyr_Texas_3 = new ol.layer.Vector({
                 declutter: true,
                 source:jsonSource_Texas_3, 
                 style: style_Texas_3,
-                interactive: false,
+                interactive: true,
                 title: '<img src="styles/legend/Texas_3.png" /> Texas'
             });
 var format_StateBoundaryLine_4 = new ol.format.GeoJSON();
@@ -87,7 +65,7 @@ var lyr_StateBoundaryLine_4 = new ol.layer.Vector({
                 declutter: true,
                 source:jsonSource_StateBoundaryLine_4, 
                 style: style_StateBoundaryLine_4,
-                interactive: false,
+                interactive: true,
                 title: '<img src="styles/legend/StateBoundaryLine_4.png" /> State Boundary Line'
             });
 var format_TexasScenarioSites_5 = new ol.format.GeoJSON();
@@ -105,8 +83,8 @@ var lyr_TexasScenarioSites_5 = new ol.layer.Vector({
                 title: '<img src="styles/legend/TexasScenarioSites_5.png" /> Texas Scenario Sites'
             });
 
-lyr_Light_0.setVisible(true);lyr_CBSABoundary_1.setVisible(true);lyr_BundledTerritories_2.setVisible(true);lyr_Texas_3.setVisible(true);lyr_StateBoundaryLine_4.setVisible(true);lyr_TexasScenarioSites_5.setVisible(true);
-var layersList = [lyr_Light_0,lyr_CBSABoundary_1,lyr_BundledTerritories_2,lyr_Texas_3,lyr_StateBoundaryLine_4,lyr_TexasScenarioSites_5];
+lyr_CartoDbPositron_0.setVisible(true);lyr_CBSABoundary_1.setVisible(true);lyr_BundledTerritories_2.setVisible(true);lyr_Texas_3.setVisible(true);lyr_StateBoundaryLine_4.setVisible(true);lyr_TexasScenarioSites_5.setVisible(true);
+var layersList = [lyr_CartoDbPositron_0,lyr_CBSABoundary_1,lyr_BundledTerritories_2,lyr_Texas_3,lyr_StateBoundaryLine_4,lyr_TexasScenarioSites_5];
 lyr_CBSABoundary_1.set('fieldAliases', {'CSAFP': 'CSAFP', 'CBSAFP': 'CBSAFP', 'GEOID': 'GEOID', 'NAME': 'NAME', 'NAMELSAD': 'NAMELSAD', 'LSAD': 'LSAD', 'MEMI': 'MEMI', 'MTFCC': 'MTFCC', 'ALAND': 'ALAND', 'AWATER': 'AWATER', 'INTPTLAT': 'INTPTLAT', 'INTPTLON': 'INTPTLON', 'territory': 'territory', });
 lyr_BundledTerritories_2.set('fieldAliases', {'CSAFP': 'CSAFP', 'CBSAFP': 'CBSAFP', 'GEOID': 'GEOID', 'NAME': 'NAME', 'NAMELSAD': 'NAMELSAD', 'LSAD': 'LSAD', 'MEMI': 'MEMI', 'MTFCC': 'MTFCC', 'ALAND': 'ALAND', 'AWATER': 'AWATER', 'INTPTLAT': 'INTPTLAT', 'INTPTLON': 'INTPTLON', 'territory': 'territory', });
 lyr_Texas_3.set('fieldAliases', {'FID': 'FID', 'OBJECTID': 'OBJECTID', 'NAME': 'NAME', 'STATE_ABBR': 'STATE_ABBR', 'STATE_FIPS': 'STATE_FIPS', 'ORDER_ADM': 'ORDER_ADM', 'MONTH_ADM': 'MONTH_ADM', 'DAY_ADM': 'DAY_ADM', 'YEAR_ADM': 'YEAR_ADM', 'TYPE': 'TYPE', 'POP': 'POP', 'SQ_MILES': 'SQ_MILES', 'PRIM_MILES': 'PRIM_MILES', 'Shape_Leng': 'Shape_Leng', 'Shape__Are': 'Shape__Are', 'Shape__Len': 'Shape__Len', });

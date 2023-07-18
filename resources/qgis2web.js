@@ -31,8 +31,23 @@ var map = new ol.Map({
     })
 });
 
+var layerSwitcher = new ol.control.LayerSwitcher({tipLabel: "Layers"});
+map.addControl(layerSwitcher);
 
-map.getView().fit([-11874276.711996, 2986521.722241, -10172715.813328, 4446413.854697], map.getSize());
+    var searchLayer = new SearchLayer({
+      layer: lyr_TexasScenarioSites_5,
+      colName: 'territory',
+      zoom: 10,
+      collapsed: true,
+      map: map
+    });
+
+    map.addControl(searchLayer);
+    document.getElementsByClassName('search-layer')[0]
+    .getElementsByTagName('button')[0].className +=
+    ' fa fa-binoculars';
+    
+map.getView().fit([-11985706.363767, 2905200.969443, -10284145.465099, 4443990.534411], map.getSize());
 
 var NO_POPUP = 0
 var ALL_FIELDS = 1
@@ -347,6 +362,17 @@ map.on('singleclick', function(evt) {
 
 
 
+
+var geocoder = new Geocoder('nominatim', {
+  provider: 'osm',
+  lang: 'en-US',
+  placeholder: 'Search for ...',
+  limit: 5,
+  keepOpen: true
+});
+map.addControl(geocoder);
+
+document.getElementsByClassName('gcd-gl-btn')[0].className += ' fa fa-search';
 
 var attributionComplete = false;
 map.on("rendercomplete", function(evt) {
